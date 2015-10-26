@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>GRASP Design Principles</title>
+
+		<meta name="description" content="Presentation for CSCI 5448, Fall 2015">
+		<meta name="author" content="Diana Southard">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/blood.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<style>
+		table {
+		    border-collapse: collapse;
+		}
+
+		table, td, th {
+		    border: 1px solid black;
+		}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>GRASP Design Principles</h2>
+					<img src="images/blue_hand.jpg">
+					<h4>Presented by Diana Southard</h4>
+          			<p>CSCI 5448, Fall 2015</p>
+				</section>
+
+				<section>
+					<h3>Table of Contents</h3>
+					<ol>
+						<li>Introduction</li>
+						<li>Why GRASP?</li>
+						<li>GRASP Principles</li>
+						<li>GRASP v GOF Patterns</li>
+						<li>Conclusion</li>
+						<li>Sources</li>
+					</ol>
+				</section>
+
+				<section>
+					<h2>Introduction</h2>
+					<p>GRASP stands for:</p>
+					<p><b>G</b>eneral <b>R</b>esponsibility <b>A</b>ssignment <b>S</b>oftware <b>P</b>rinciples/Patterns</p>
+					<p>The GRASP patterns are a learning aid to help understand essential object design by applying design reasoning in a methodical, rational, and explainable way. They offer a guidelines for how to assign responsibility to classes and objects in object-oriented design.</p>
+					<blockquote> “The critical design tool for software development is a mind well educated in design principles. It is not the UML or any other technology" (Craig Larman, "Applying UML and Patterns")</blockquote>
+				</section>
+				
+				<section>
+					<h2>Why Grasp?</h2>
+					<p>GRASP princples are a philosophy of design, not a one-fit solution to any specific problem. In order to properly use the GRASP principles, you need to understand the problem that you're facing in your specific design and use the GRASP guidelines for imagining and designing a robust solution.</p>
+					<p>Following the GRASP principles can lead to improved designs and architectures.<p>
+				</section>
+				
+				<section>
+					<h2>GRASP Principles</h2>
+					<p>There are nine core principles:</p>
+<p> • Low Coupling • High Cohesion • Information Expert • Creator • Controller • Polymorphism • Indirection • Pure Fabrication • Protected Variations • 
+</p>
+				</section>
+					
+				<section>
+					<h3>1: Low Coupling</h3>
+					<img height = 450 src="images/coupling.png">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+						<p>How to reduce impact of changes and encourage reuse?</p>
+						<p><i>Coupling:</i> the manner and degree of interdependence between software modules.</p>
+					<h4>Solution</h4>
+					<p>Assign responsibility so that coupling remains low. </p>
+					<h5>Approach:</h5>
+					<ol>
+						<li>Closely look for classes with many associations to other classes.</li>
+						<li>Look for the methods that rely on a lot of other methods (or methods in other classes i.e. dependencies).</li>
+						<li>Rework the design so as to assign responsibilities to different classes in such a way that they have lesser association and dependency.</li>
+					</ol>
+				</section>
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Maintainability: Little or no affect on the module by changes in other components.</li>
+					<li>Easy to understand.</li>
+					<li>Improved Reusability: convenient to reuse and easier to grab hold of classes.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+					<li>Coupling to stable elements (classes in library or well tested classes) doesn’t account to be a problem.</li>
+				</ul>
+				</section>
+						
+				<section>
+					<h3>2: High Cohesion</h3>
+					<img height = 450 src="images/cohesion.jpg">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+					<p>How to keep classes focused and manageable?</p>
+					<h4>Solution</h4>
+					<p>Assign responsibility so that cohesion remains high.</p>
+					<h5>Approach:</h5>
+					<ol>
+						<li>Closely look for classes with probability of many responsibilities i.e. classes with too-few or disconnected methods.</li>
+						<li>Look for the methods which do a lot (look for method names having words like “AND”, “OR”).</li>
+						<li>Assign a responsibility in such a way that all the responsibilities in a class are related.</li>
+					</ol>
+				</section>	
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Clarity and ease  of understanding design is increased.</li>
+					<li>Maintenance and enhancements are simplified.</li>
+					<li>Low  coupling is often supported.</li>
+					<li>Small size classes with highly related functionality increases reuse.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+					<li>In scenarios of server objects, it would be desirable to have less cohesive server objects due to performance needs. Remote objects and remote communication are the examples where performance matters than anything else. In this case, an interface provided for many operations would be recommended than having highly cohesive but different interfaces/ components.</li>
+					
+				</ul>
+				</section>	
+				
+				<section>
+					<h3>3: Information Expert</h3>
+					<img src="images/expert.png">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+					<p>Any real world application has hundreds of classes and thousand of actions. How do I start assigning the responsibility?</p>
+					<h4>Solution</h4>
+					<p>Assign a responsibility to the Information Expert, the class that has information necessary to fulfill the responsibility.</p>
+					<h5>Approach:</h5>
+					<ol>
+						<li>State the responsibility clearly.</li>
+						<li>Search for the classes who have the information needed to fulfill the responsibility.</li>
+						<li>Assign the responsibility.</li>
+					</ol>
+					<p>This will lead to placing the responsibility on the class with the most information required to fulfill it.</p>
+				</section>	
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Encapsulation is maintained as objects use their own data to fulfill the task.</li>
+					<li>Supports low coupling</li>
+					<li>Behaviour (responsibility) is distributed across the classes that have the required information thus encouraging highly cohesive lightweight classes.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+					<li>Sometimes while assigning responsibilities, lower level responsibilities are uncovered.</li>
+				</ul>
+				</section>
+				
+				<section>
+					<h3>4: Creator</h3>
+					<img src="images/creator.jpg">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+					<p>Who creates the new instance of some class?</p>
+					<h4>Solution</h4>
+					<p>Assign class A the responsibility to create an instance of class B if:</p>
+					<ul>
+						<li>A aggregates (whole-part relationship) B objects,</li>
+						<li>A contains B objects,</li>
+						<li>A records instances of B objects,</li>
+						<li>A closely uses B objects, OR </li>
+						<li>A has initializing data that is needed while creating B objects (thus A is an expert with respect to creating B).</li>
+					</ul>
+				</section>
+				
+				<section>
+				<h4>Approach:</h4>
+				<ol>
+					<li>Closely look at domain/ design model and ask: who should be creating these classes?</li>
+					<li>Search for the classes who create.</li>
+					<li>Assign the responsibility of creation.</li>
+				</ol>
+				</section>
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Supports low coupling.</li>
+					<li>The responsibility is assigned to a class which fulfills the criteria, separating the logic for creation and actual execution.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+					<li>Sometimes creation may require significant complexity. Many times there is tight coupling between the creator and created class. Also the task of destroying the objects might need to be taken into account. Pooling such instances becomes important for the performance reasons.</li>
+				</ul>
+				</section>
+				
+				<section>
+					<h3>5: Controller</h3>
+					<img height = 450 src="images/controller.jpg">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+					<p>Who should be responsible for handling a system event?</p>
+					<h4>Solution</h4>
+					<p>Assign the responsibility for handling a system event message to a class representing one of the following:
+					</p>
+					<ol>
+						<li>A class that represents the overall system, device, or sub-system (facade controller).</li>
+						<li>A class that represents a use case within which the system event occurs (a session controller or use case controller).</li>
+						<li>Represents the overall business (facade controller).</li>
+						<li>Represents something in real world that is active (role controller).</li>
+					</ol>
+				</section>
+				
+				<section>
+				<h4>Approach:</h4>
+				<ol>
+					<li>Closely look at domain/design model to find when you have family of classes doing work/job pertaining to some specific function and would need some facilitator</li>
+					<li>Add a new class to take the responsibility of controller or manager, where all client code would access the functionality through this class.</li>
+				</ol>
+				</section>
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Supports low coupling.</li>
+					<li>Promotes understandability and maintainability.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+					<li>Sometimes grouping of responsibilities or code into one class or component to simplify maintenance occurs when controllers are designed. This should be avoided as it would become bloated controllers.</li>
+				</ul>
+				<p><i>Bloated Controller:</i> controllers which handle too many system events leading to low cohesion. This can be avoided by addition of a few more controllers.</p>
+				</section>
+						
+				<section>
+					<h3>6: Polymorphism</h3>
+					<img height = 450 src="images/poly.gif">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+					<p>How to handle alternatives based on type? How to create pluggable software components?</p>
+					<h4>Solution</h4>
+					<p>Assign responsibility for the behaviour (using polymorphic operations) to the types for which the behaviour varies.</p>
+					<h4>Approach:</h4>
+				<ol>
+					<li>Identify classes/ types which would have the behaviour changing slightly.</li>
+					<li>Look for the methods which use conditional statements.</li>
+					<li>Assign a responsibility to a type for which the behaviour varies.</li>
+				</ol>
+				</section>
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Unknown extensions required for new variants are easy to add.</li>
+					<li>Maintenance and enhancements are simplified.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+					<li>Code that is initially simple may become unnecessarily complex.</li>
+				</ul>
+				</section>
+				
+				<section>
+					<h3>7: Indirection</h3>
+					<img height = 300 src="images/indirection.gif">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+					<p>How to combine low coupling and high potential for reuse?</p>
+					<h4>Solution</h4>
+					<p>Assign the responsibility to an intermediate object to mediate between other components or services so that they are not directly coupled.
+</p>
+				<h4>Approach:</h4>
+				<ol>
+					<li>Closely look at domain/ design model and locate the classes with low coupling or direct coupling.</li>
+					<li>Use an existing class to take the responsibility of functionality causing low coupling and also the functionality has high potential for reuse.</li>
+				</ol>
+				</section>
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Supports Low Coupling.</li>
+					<li>Results in high reusability.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+				<li>Sometimes such design may result into bunch of classes having a single method which is a kind of overkill.</li>
+				</ul>
+				</section>
+				
+				<section>
+					<h3>8: Pure Fabrication</h3>
+					<img height = 450 src="images/fabrication.jpg">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+					<p>Who should be responsible when an expert violates high cohesion and low coupling?</p>
+					<h4>Solution</h4>
+					<p>Assign the responsibility for handling a system event message to a class which is new, fictitious, (artificial) and doesn’t represent a concept in domain.</p>
+					<h4>Approach:</h4>
+				<ol>
+					<li>Closely look at domain/ design model and locate the classes with low cohesion and high coupling.</li>
+					<li>Create a new class to take the responsibility of functionality causing low cohesion and high coupling.</li>
+				</ol>
+				</section>
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Supports Low Coupling.</li>
+					<li>Results in high cohesion.</li>
+					<li>Promotes resuability.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+					<li>Sometimes such design may result into bunch of classes having a single method which is a kind of overkill.</li>
+				</ul>
+				</section>
+				
+				<section>
+					<h3>9: Protected Variations</h3>
+					<img src = "images/Adapter.png">
+				</section>
+				
+				<section>
+					<h4>Problem</h4>
+					<p>How should responsibilities be assigned in such a fashion that the current or future variations in the system do not cause major problems with system operation and/or revision?
+</p>
+					<h4>Solution</h4>
+					<p>Assign responsibilities to create stable interfaces around current and future variations.</p>
+					<h4>Approach:</h4>
+				<ol>
+					<li>Closely look for elements with direct coupling and also relatively prone to change.</li>
+					<li>Identify for the objects or points of predicted variation.</li>
+					<li>Assign these responsibilities in such a way to create a stable interface around them.</li>
+				</ol>
+				</section>
+				
+				<section>
+				<h4>Benefits:</h4>
+				<ul>
+					<li>Extensions required for new variations are easy to add.</li>
+					<li>New implementations can be introduced without affecting clients.</li>
+					<li>Coupling is lowered.</li>
+					<li>The impact or cost of changes can be lowered.</li>
+				</ul>
+				<h4>Liabilities:</h4>
+				<ul>
+					<li>The design cost of speculative “future-proofing” i.e. protecting from future variations at evolution point may outweigh the design cost incurred by a simple design that is reworked as necessary. Evolution point is a speculative point of instability or variation that may arise in future, but not specified in current requirement. This means sometime a simple design with no PV can cost a lot less in the current time and this can be reworked when future variation becomes reality.</li>
+				</ul>
+				</section>
+				
+				<section>
+					<h2>GRASP v GOF Patterns</h2>
+					<p>The many different GOF Patterns that we've seen in class are all tied to specific, recurring problems that developers face when creating software. In this way, you can use the patterns as a cheat sheet, looking up the exact answer to the problem you're currently facing.</p>
+					<p>GRASP principles, however, are not tied to any specific problems. The bad thing about that is that it's not as easy to find a solution to the exact problem you're facing. However, not being tied to a specific problem means that the GRASP principles are true in any design scenario.</p>
+					<p>In this comparision, it is easy to understand GRASP principles as the abstract, underlying principles of all the different GOF patterns.
+				</section>
+
+				<section>
+					<h2>Conclusion</h2>
+					<p>Like the many GOF patterns we've covered in class, following the design patterns described by the GRASP techniques will result in highly maintanable, robust, and reusable systems.
+				</section>
+				
+				<section>
+				<h2>Sources</h2>
+				<ul>
+					<li><a href=" http://libraries.colorado.edu/record=b3702340~S3">Larman, Craig, <b>Applying UML and patterns : an introduction to object-oriented analysis and design and iterative development</b></a></li>
+					</ul>
+				</section>
+				<section>
+					<h2>Thank You</h2>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
